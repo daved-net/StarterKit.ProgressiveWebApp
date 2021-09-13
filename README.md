@@ -9,9 +9,9 @@ A docker-compose template to launch the frontend, backend and administrative ser
 - Vue 3 | The perfect middleweight for OOP-lang experienced engineers and javascript developers to build production ready applications
 - Nuxt 2.15.8 | Provides a mature set of boilerplate javascript and typescript code to standarize the frontend business logic
 - Vuetify 2.5.5 | Mature, robust and flexible components in Material Design that leave room to apply your own housestyle
-- Flask | The most lightweight and reliable api framework for rapid API development in python 
-- PostgresSql 13.3 | What can I say.. the most reliable and accessible licensed SQL server that has enough support for document based storage
-- PgAdmin 4 | Always good to have a tool that let's you view/edit your database data
+- Flask 1.1 | The most lightweight and reliable api framework for rapid API development in python 
+- PostgresSQL 9.6 | What can I say.. the most reliable and accessible licensed Relation SQL Database that has enough support for document based storage
+- PgAdmin 4 | Always good to have a tool that lets you view/edit your database data
 
 ## Requirements
 [Docker engine >= 20.10.4](https://docs.docker.com/engine/release-notes)
