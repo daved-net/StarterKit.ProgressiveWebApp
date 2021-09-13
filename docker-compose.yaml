@@ -30,13 +30,11 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
     depends_on:
       - postgres_db
-    links: 
-      - postgres_db
 
-  api_service:
-    build: ./api_services/
+  service_api:
+    build: ./service_api/
     volumes: 
-        - ./api_services/:/usr/src/app/
+        - ./service_api/:/usr/src/app/
     ports: 
         - 5000:5000
     environment: 
