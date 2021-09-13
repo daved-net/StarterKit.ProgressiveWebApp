@@ -1,0 +1,52 @@
+version: '3'
+services:
+  frontend_client:
+    build: .
+    command: yarn dev
+    volumes:
+      - ./frontend_client/:/usr/app/
+    ports:
+      - 3000:3000
+
+  postgres_db:
+    image: postgres:9.6.23-alpine3.14
+    volumes:
+      - pg_db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust #use for developmentonly
+      POSTGRES_USER: ${POSTGRES_USER:-starterkit}
+      POSTGRES_DB: ${POSTGRES_DB:-starterkit}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
+    ports:
+      - 5442:5432
+
+  pg_admin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    ports:
+      - 5555:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@admin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    depends_on:
+      - postgres_db
+    links: 
+      - postgres_db
+
+  api_service:
+    build: ./api_services/
+    volumes: 
+        - ./api_services/:/usr/src/app/
+    ports: 
+        - 5000:5000
+    environment: 
+        PORT: 5000
+        FLASK_DEBUG: 1
+        DATABASE_URL: postgres://starterkit:admin@172.17.0.1/starterkit
+        APP_SETTINGS: ${API_APP_SETTINGS:-config.DevelopmentConfig}
+
+volumes:
+  pg_db_data:
+    driver: local
+
+# host.docker.internal == 172.17.0.1
